@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("./loginbg.webp")`,
+        backgroundImage: `url("./fondo.jpg")`,
         minHeight: "80vh",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

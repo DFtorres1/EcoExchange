@@ -3,16 +3,22 @@ import { Fragment, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useValidateContext } from "./utils/customHooks";
 import { LoadingScreen } from "./pages/utils/loadingScreen";
-import GuardRole from "./GuardRole";
+//import GuardRole from "./GuardRole";
 import PageLayout from "./pages/utils/layout";
 
 const routesConfig: RoutesType[] = [
   {
     id: "root",
     path: "/*",
-    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/main_page/mainPage")),
   },
+  {
+    id: "negociacion",
+    path: "/negociacion",
+    component: lazy(() => import("src/componentes/Negociacion")), // Asegúrate de importar el componente correctamente
+  },
+  
   {
     id: "login",
     path: "/login",
@@ -26,19 +32,19 @@ const routesConfig: RoutesType[] = [
   {
     id: "allies",
     path: "/allies",
-    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/allies/allies")),
   },
   {
     id: "exchanges",
     path: "/exchanges",
-    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/exchanges/exchanges")),
   },
   {
     id: "offers",
     path: "/offers",
-    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/offers/offers")),
   },
 ];
