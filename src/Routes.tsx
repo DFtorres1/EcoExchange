@@ -1,15 +1,16 @@
 import { lazy } from "react";
 import { Fragment, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useValidateContext } from "./utils/customHooks";
 import { LoadingScreen } from "./pages/utils/loadingScreen";
 import GuardRole from "./GuardRole";
-import PageLayout from "./pages/utils/layout";
+import { PageLayout } from "./pages/utils/layout";
 
 const routesConfig: RoutesType[] = [
   {
     id: "root",
     path: "/*",
+    layout: PageLayout,
     guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/main_page/mainPage")),
   },
@@ -26,21 +27,29 @@ const routesConfig: RoutesType[] = [
   {
     id: "allies",
     path: "/allies",
+    layout: PageLayout,
     guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/allies/allies")),
   },
   {
     id: "exchanges",
     path: "/exchanges",
+    layout: PageLayout,
     guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/exchanges/exchanges")),
   },
   {
     id: "offers",
     path: "/offers",
+    layout: PageLayout,
     guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/offers/offers")),
   },
+  {
+    id: '*',
+    path: '*',
+    component: () => <Navigate to="/404" />
+  }
 ];
 
 const renderRoutes = (routes: RoutesType[]) =>
@@ -49,6 +58,7 @@ const renderRoutes = (routes: RoutesType[]) =>
       <Routes>
         {routes.map((route) => {
           const Guard = route.guard || Fragment;
+          const Layout = route.layout || Fragment;
           const Component = route.component;
           return (
             <Route
@@ -56,19 +66,9 @@ const renderRoutes = (routes: RoutesType[]) =>
               path={route.path ?? ""}
               element={
                 <Guard>
-                  {route.id == "login" ? (
-                    <Component />
-                  ) : route.id == "register" ? (
-                    <Component />
-                  ) : (
-                    <PageLayout>
-                      {route.routes ? (
-                        renderRoutes(route.routes)
-                      ) : (
-                        <Component />
-                      )}
-                    </PageLayout>
-                  )}
+                  <Layout>
+                    {route.routes ? renderRoutes(route.routes) : <Component />}
+                  </Layout>
                 </Guard>
               }
             />

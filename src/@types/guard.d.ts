@@ -2,6 +2,7 @@ type RoutesType = {
   id: string;
   path?: string;
   guard?: React.FC;
+  layout?: React.FC;
   component?: any;
   routes?: RoutesType[];
 };

@@ -1,5 +1,5 @@
 import { Button, Card, Layout, Menu } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { FC, ReactNode, useEffect, useState } from "react";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaExchangeAlt } from "react-icons/fa";
 import { IoHomeSharp, IoPeople } from "react-icons/io5";
@@ -14,6 +14,10 @@ type MenuItem = {
   icon?: React.ReactNode;
   child?: String;
 };
+
+interface LayoutProps {
+  children?: ReactNode;
+}
 
 const items: MenuItem[] = [
   {
@@ -42,14 +46,14 @@ const items: MenuItem[] = [
   },
 ];
 
-const PageLayout = ({ children }: { children: React.ReactNode }) => {
+export const PageLayout: FC<LayoutProps> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [currentPath, setCurrentPath] = useState<String>();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate(`${currentPath}`);
+    currentPath != undefined ? navigate(`${currentPath}`) : null;
   }, [currentPath]);
 
   const handleCurrentPath = (value: String) => {
@@ -58,9 +62,9 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   const handleLogout = () => {
-    removeSessionToken()
+    removeSessionToken();
     navigate("/login");
-  }
+  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -102,22 +106,22 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
         </Sider>
         <Layout>
           <Content style={{ minHeight: "81vh" }}>
-              <Card
-                style={{
-                  backgroundImage: `url("./EcoExBg.jpg")`,
-                  minHeight: "70vh",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                  border: "0",
-                  borderRadius: "0",
-                  fontFamily: "impact",
-                  WebkitTextStroke: "3px",
-                  WebkitTextStrokeColor: "green"
-                }}
-              >
-                <div>{children}</div>
-              </Card>
+            <Card
+              style={{
+                backgroundImage: `url("./EcoExBg.jpg")`,
+                minHeight: "70vh",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                border: "0",
+                borderRadius: "0",
+                fontFamily: "impact",
+                WebkitTextStroke: "3px",
+                WebkitTextStrokeColor: "green",
+              }}
+            >
+              <div>{children}</div>
+            </Card>
           </Content>
           <Footer
             style={{
@@ -137,5 +141,3 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
     </Layout>
   );
 };
-
-export default PageLayout;
