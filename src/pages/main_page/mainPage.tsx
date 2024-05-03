@@ -16,7 +16,7 @@ const imageStyle: React.CSSProperties = {
   objectFit: 'contain' // Para ajustar la imagen dentro del contenedor sin distorsionarla
 };
 
-const App: React.FC = () => (
+const MainPage: React.FC = () => (
   <Carousel autoplay autoplaySpeed={3000}> {/* autoplaySpeed en milisegundos (3000ms = 3 segundos) */}
     <div style={contentStyle}>
       <img src="carru2.jpg" alt="Imagen 1" style={imageStyle} />
@@ -33,4 +33,4 @@ const App: React.FC = () => (
   </Carousel>
 );
 
-export default App;
+export default MainPage;
