@@ -1,0 +1,49 @@
+.mis-aliados-container {
+    padding: 20px;
+  }
+  
+  .titulo {
+    font-size: 28px;
+    color: #125BD1;
+    margin-bottom: 30px;
+  }
+  
+  .aliados-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .aliado-item {
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #125BD1;
+    color: white;
+    text-align: center;
+  }
+  
+  .aliado-item img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 5px;
+  }
+  
+  .btn-ver-productos {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none; /* Añadido para quitar el subrayado del Link */
+    display: inline-block;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-ver-productos:hover {
+    background-color: #0056b3;
+  }
+  

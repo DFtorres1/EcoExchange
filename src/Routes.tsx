@@ -15,6 +15,12 @@ const routesConfig: RoutesType[] = [
     component: lazy(() => import("src/pages/main_page/mainPage")),
   },
   {
+    id: "negociacion",
+    path: "/negociacion",
+    component: lazy(() => import("src/componentes/Negociacion")), // Asegúrate de importar el componente correctamente
+  },
+  
+  {
     id: "login",
     path: "/login",
     component: lazy(() => import("src/pages/authentication/login")),

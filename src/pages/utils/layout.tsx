@@ -53,7 +53,9 @@ export const PageLayout: FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    currentPath != undefined ? navigate(`${currentPath}`) : null;
+    if(currentPath){
+      navigate(`${currentPath}`);
+    }
   }, [currentPath]);
 
   const handleCurrentPath = (value: String) => {
@@ -71,17 +73,17 @@ export const PageLayout: FC<LayoutProps> = ({ children }) => {
       <Header
         style={{
           paddingLeft: "40",
-          background: "#006400",
+          background: "#125BD1",
           color: "aliceblue",
           fontSize: "30px",
-          height: "9vh",
+          height: "10vh",
         }}
       >
         <div
           style={{
             height: "70px",
             width: "300px",
-            backgroundImage: `url("./EcoExLogo.png")`,
+            backgroundImage: `url("./eco111.png")`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
             backgroundSize: "cover",
@@ -93,41 +95,41 @@ export const PageLayout: FC<LayoutProps> = ({ children }) => {
           collapsible
           collapsed={collapsed}
           onCollapse={(value) => setCollapsed(value)}
-          style={{ background: "#733C07" }}
+          style={{ background: "#000000" }}
         >
           <Menu
-            style={{ fontSize: "16px", background: "#733C07" }}
+            style={{ fontSize: "16px", background: "#000000" }}
             theme="dark"
             mode="inline"
             items={items}
             onSelect={(value) => handleCurrentPath(value.key)}
           />
-          <Button onClick={handleLogout}>Salir</Button>
+          <Button onClick={handleLogout}>Cerrar Sesion</Button>
         </Sider>
         <Layout>
           <Content style={{ minHeight: "81vh" }}>
-            <Card
-              style={{
-                backgroundImage: `url("./EcoExBg.jpg")`,
-                minHeight: "70vh",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                border: "0",
-                borderRadius: "0",
-                fontFamily: "impact",
-                WebkitTextStroke: "3px",
-                WebkitTextStrokeColor: "green",
-              }}
-            >
-              <div>{children}</div>
-            </Card>
+              <Card
+                style={{
+                  backgroundImage: `url("./fondo.jpg")`,
+                  minHeight: "90vh",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  border: "0",
+                  borderRadius: "0",
+                  fontFamily: "impact",
+                  WebkitTextStroke: "1px",
+                  WebkitTextStrokeColor: "black"
+                }}
+              >
+                <div>{children}</div>
+              </Card>
           </Content>
           <Footer
             style={{
               textAlign: "center",
               padding: "0",
-              background: "#213547",
+              background: "#125BD1",
               color: "aliceblue",
               justifyContent: "center",
               paddingTop: "2vh",
