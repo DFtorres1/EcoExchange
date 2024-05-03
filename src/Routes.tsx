@@ -19,7 +19,7 @@ const routesConfig: RoutesType[] = [
     path: "/negociacion",
     component: lazy(() => import("src/componentes/Negociacion")), // Asegúrate de importar el componente correctamente
   },
-  
+
   {
     id: "login",
     path: "/login",
@@ -52,10 +52,10 @@ const routesConfig: RoutesType[] = [
     component: lazy(() => import("src/pages/offers/offers")),
   },
   {
-    id: '*',
-    path: '*',
-    component: () => <Navigate to="/404" />
-  }
+    id: "*",
+    path: "*",
+    component: () => <Navigate to="/404" />,
+  },
 ];
 
 const renderRoutes = (routes: RoutesType[]) =>
