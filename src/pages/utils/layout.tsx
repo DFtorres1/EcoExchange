@@ -1,9 +1,10 @@
-import { Button, Card, Layout, Menu } from "antd";
+import { Button, Card, Flex, Layout, Menu } from "antd";
 import React, { FC, ReactNode, useEffect, useState } from "react";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaExchangeAlt } from "react-icons/fa";
 import { IoHomeSharp, IoPeople } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { TiShoppingCart } from "react-icons/ti";
+import { Link, useNavigate } from "react-router-dom";
 import { removeSessionToken } from "src/utils/functions";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -53,7 +54,7 @@ export const PageLayout: FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(currentPath){
+    if (currentPath) {
       navigate(`${currentPath}`);
     }
   }, [currentPath]);
@@ -79,16 +80,23 @@ export const PageLayout: FC<LayoutProps> = ({ children }) => {
           height: "10vh",
         }}
       >
-        <div
-          style={{
-            height: "70px",
-            width: "300px",
-            backgroundImage: `url("./eco111.png")`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-          }}
-        ></div>
+        <Flex justify="space-between" >
+          <div
+            style={{
+              height: "70px",
+              width: "300px",
+              backgroundImage: `url("./eco111.png")`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+          />
+          <Link to={"/cart"}>
+            <h1 style={{ color: "aliceblue", padding: "0", margin: "0" }}>
+              <TiShoppingCart />
+            </h1>
+          </Link>
+        </Flex>
       </Header>
       <Layout>
         <Sider
@@ -108,22 +116,22 @@ export const PageLayout: FC<LayoutProps> = ({ children }) => {
         </Sider>
         <Layout>
           <Content style={{ minHeight: "81vh" }}>
-              <Card
-                style={{
-                  backgroundImage: `url("./fondo.jpg")`,
-                  minHeight: "90vh",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                  border: "0",
-                  borderRadius: "0",
-                  fontFamily: "impact",
-                  WebkitTextStroke: "1px",
-                  WebkitTextStrokeColor: "black"
-                }}
-              >
-                <div>{children}</div>
-              </Card>
+            <Card
+              style={{
+                backgroundImage: `url("./fondo.jpg")`,
+                minHeight: "90vh",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                border: "0",
+                borderRadius: "0",
+                fontFamily: "impact",
+                WebkitTextStroke: "1px",
+                WebkitTextStrokeColor: "black",
+              }}
+            >
+              <div>{children}</div>
+            </Card>
           </Content>
           <Footer
             style={{

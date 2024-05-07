@@ -52,6 +52,12 @@ const routesConfig: RoutesType[] = [
     component: lazy(() => import("src/pages/offers/offers")),
   },
   {
+    id: "cart",
+    path: "/cart",
+    layout: PageLayout,
+    component: lazy(() => import("src/pages/cart/Cart"))
+  },
+  {
     id: "*",
     path: "*",
     component: () => <Navigate to="/404" />,

@@ -3,12 +3,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
 import RenderRoutes from "./Routes";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { ReactNode, createContext, useContext, useMemo, useState } from "react";
 
 export const queryClient = new QueryClient();
 
 interface CartContextInterface {
-  cart: Array<Product> | undefined
+  cart: Array<Product> | undefined;
   setCart: React.Dispatch<Product[] | undefined>;
 }
 
@@ -16,7 +16,7 @@ const CartContext = createContext<CartContextInterface | null>(null);
 
 const CartProvider = (children: { children: ReactNode }) => {
   const [cart, setCart] = useState<Product[] | undefined>([]);
-  const cartValue = { cart, setCart };
+  const cartValue = useMemo(() => ({ cart, setCart }), [cart, setCart]);
   return (
     <CartContext.Provider value={cartValue}>
       {children.children}
