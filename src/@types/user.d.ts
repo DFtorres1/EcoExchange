@@ -17,6 +17,13 @@ type users = {
     email: string,
     username: string,
     password: string,
-    registerDate: string,
+    registerDate: Date,
     rolesByUser: RolesByUser[]
 }
+
+type LoginObjectModel = {
+    username: string;
+    password: string;
+    remember?: boolean;
+  }
+  

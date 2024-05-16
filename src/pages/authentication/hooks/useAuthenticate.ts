@@ -4,11 +4,6 @@ import { useAuth } from "src/UserProvider";
 import { useNavigate } from "react-router-dom";
 import api from "src/utils/api";
 
-interface LoginObjectModel {
-  username: string;
-  password: string;
-}
-
 const postAuthentication = async (loginObject: LoginObjectModel) => {
   const { data } = await api.post("/authentication/login", loginObject);
   return data;
@@ -28,7 +23,6 @@ const useAuthentication = () => {
     onSuccess: (data: any) => {
       const { token } = data;
       const decodedToken = jwtDecode<any>(token);
-      console.log(decodedToken)
       const localUserRole = decodedToken.userRoles;
       if (localUserRole) {
         currentUserRole?.setUserRoles(localUserRole);
