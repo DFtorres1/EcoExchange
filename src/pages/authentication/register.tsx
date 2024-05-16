@@ -1,8 +1,15 @@
-import { Button, Card, Col, Form, Input, Row } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Flex, Form, Input, Row } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
+import { HiOutlineMail } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
+import { MdDriveFileRenameOutline } from "react-icons/md";
+import { confirmPassRules, emailRules } from "./utils";
+import { DefaultInputStyle } from "src/shared/components/commonStyles";
+
 const Register = () => {
+  const [form] = Form.useForm();
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
@@ -34,39 +41,76 @@ const Register = () => {
         <Row style={{ justifyContent: "space-between" }}>
           <Col>
             <Form
+              form={form}
               name="login"
               style={{ maxWidth: 300, color: "aliceblue" }}
               initialValues={{ remember: true }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
               autoComplete="on"
+              scrollToFirstError
             >
+              <Form.Item name="name" label="Nombre">
+                <Input
+                  style={DefaultInputStyle}
+                  prefix={<MdDriveFileRenameOutline />}
+                />
+              </Form.Item>
+              <Form.Item
+                name="email"
+                label="E-mail"
+                rules={emailRules}
+              >
+                <Input style={DefaultInputStyle} prefix={<HiOutlineMail />} />
+              </Form.Item>
               <Form.Item
                 name="username"
+                label="username"
+                tooltip="What do you want to call you?"
                 rules={[
                   { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.4)",
-                    color: "aliceblue",
-                    minHeight: "50px",
-                    fontSize: "20px",
-                  }}
-                  prefix={<UserOutlined />}
+                <Input style={DefaultInputStyle} prefix={<AiOutlineUser />} />
+              </Form.Item>
+              <Form.Item
+                name="password"
+                label="Password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password!",
+                  },
+                ]}
+                hasFeedback
+              >
+                <Input.Password
+                  style={DefaultInputStyle}
+                  prefix={<AiOutlineLock />}
                 />
               </Form.Item>
-
-              <Form.Item>
-                <Link to={""} style={{ color: "#ADD8E6" }}>
-                  Forgot password
-                </Link>
+              <Form.Item
+                name="confirm"
+                label="Confirm Password"
+                dependencies={["password"]}
+                hasFeedback
+                rules={confirmPassRules}
+              >
+                <Input.Password
+                  style={DefaultInputStyle}
+                  prefix={<AiOutlineLock />}
+                />
               </Form.Item>
-
               <Form.Item style={{ color: "aliceblue" }}>
-                <Button type="primary">Log in</Button>
-                Or{" "}
+                <Flex justify="space-between">
+                  <Button type="primary" disabled={false} htmlType="submit">
+                    {false ? <LoadingOutlined /> : "Register"}
+                  </Button>
+                  or
+                  <Link to={"/login"}>
+                    <Button type="primary">Log in</Button>
+                  </Link>
+                </Flex>
               </Form.Item>
             </Form>
           </Col>
