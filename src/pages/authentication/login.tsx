@@ -1,30 +1,17 @@
-import { Button, Card, Checkbox, Col, Form, Input, Row } from "antd";
-import { LockOutlined, UserOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Button, Card, Checkbox, Col, Flex, Form, Input, Row } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthentication from "./hooks/useAuthenticate";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { AiOutlineLock, AiOutlineUser } from "react-icons/ai";
+import { DefaultInputStyle } from "src/shared/components/commonStyles";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleUsernameChange = (event: any) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event: any) => {
-    setPassword(event.target.value);
-  };
-
-  const handleRememberMeChange = () => {
-    setRememberMe(!rememberMe);
-  };
-
-  const onFinish = (values: any) => {
+  const onFinish = (values: LoginObjectModel) => {
     console.log("Success:", values);
+    authenticateUser(values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -35,7 +22,7 @@ const Login = () => {
     mutate: authenticateUser,
     //error: authenticationError,
     isSuccess: authenticationSuccess,
-    isPending: authLoading
+    isPending: authLoading,
   } = useAuthentication();
 
   useEffect(() => {
@@ -81,14 +68,8 @@ const Login = () => {
                 ]}
               >
                 <Input
-                  onChange={handleUsernameChange}
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.4)",
-                    color: "aliceblue",
-                    minHeight: "50px",
-                    fontSize: "20px",
-                  }}
-                  prefix={<UserOutlined />}
+                  style={DefaultInputStyle}
+                  prefix={<AiOutlineUser />}
                 />
               </Form.Item>
 
@@ -98,21 +79,14 @@ const Login = () => {
                   { required: true, message: "Please input your password!" },
                 ]}
               >
-                <Input
-                onChange={handlePasswordChange}
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.4)",
-                    color: "aliceblue",
-                    minHeight: "50px",
-                    fontSize: "20px",
-                  }}
-                  prefix={<LockOutlined />}
-                  type="password"
+                <Input.Password
+                  style={DefaultInputStyle}
+                  prefix={<AiOutlineLock />}
                 />
               </Form.Item>
               <Form.Item>
                 <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox onChange={handleRememberMeChange} style={{ color: "aliceblue" }}>
+                  <Checkbox style={{ color: "aliceblue" }}>
                     Remember me
                   </Checkbox>
                 </Form.Item>
@@ -121,18 +95,24 @@ const Login = () => {
                   Forgot password
                 </Link>
               </Form.Item>
-
-              <Form.Item style={{ color: "aliceblue" }}>
-                <Button
-                  type="primary"
-                  onClick={() => authenticateUser({ username, password })}
-                >
-                  {authLoading ? <LoadingOutlined /> : "SIGN IN"}
-                </Button>
-                Or{" "}
-                <Link to={""} style={{ color: "#ADD8E6" }}>
-                  Registrate
-                </Link>
+              <Form.Item
+                style={{
+                  color: "aliceblue",
+                }}
+              >
+                <Flex justify="space-between">
+                  <Button
+                    type="primary"
+                    disabled={authLoading}
+                    htmlType="submit"
+                  >
+                    {authLoading ? <LoadingOutlined /> : "SIGN IN"}
+                  </Button>
+                  Or
+                  <Link to={"/register"} style={{ color: "#ADD8E6" }}>
+                    Registrate
+                  </Link>
+                </Flex>
               </Form.Item>
             </Form>
           </Col>
