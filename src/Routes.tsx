@@ -3,7 +3,7 @@ import { Fragment, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useValidateContext } from "./utils/customHooks";
 import { LoadingScreen } from "./pages/utils/loadingScreen";
-//import GuardRole from "./GuardRole";
+import GuardRole from "./GuardRole";
 import { PageLayout } from "./pages/utils/layout";
 
 const routesConfig: RoutesType[] = [
@@ -11,15 +11,15 @@ const routesConfig: RoutesType[] = [
     id: "root",
     path: "/*",
     layout: PageLayout,
-    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/main_page/mainPage")),
   },
   {
     id: "negociacion",
     path: "/negociacion",
-    component: lazy(() => import("src/componentes/Negociacion")), // Asegúrate de importar el componente correctamente
+    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    component: lazy(() => import("src/componentes/Negociacion")),
   },
-
   {
     id: "login",
     path: "/login",
@@ -34,27 +34,28 @@ const routesConfig: RoutesType[] = [
     id: "allies",
     path: "/allies",
     layout: PageLayout,
-    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/allies/allies")),
   },
   {
     id: "exchanges",
     path: "/exchanges",
     layout: PageLayout,
-    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/exchanges/exchanges")),
   },
   {
     id: "offers",
     path: "/offers",
     layout: PageLayout,
-    //guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/offers/offers")),
   },
   {
     id: "cart",
     path: "/cart",
     layout: PageLayout,
+    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/cart/Cart"))
   },
   {
