@@ -51,6 +51,20 @@ const routesConfig: RoutesType[] = [
     guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
     component: lazy(() => import("src/pages/offers/offers")),
   },
+
+  {
+    id: "negociacion",
+    path: "/negociacion",
+    component: lazy(() => import("src/componentes/Negociacion")), 
+  },
+
+  {
+    id: "product-form",
+    path: "/product",
+    layout: PageLayout,
+    guard: GuardRole(["ADMIN", "BENEF", "DONOR", "MOD"]),
+    component: lazy(() => import("src/pages/offers/productForm")),
+  },
   {
     id: "cart",
     path: "/cart",

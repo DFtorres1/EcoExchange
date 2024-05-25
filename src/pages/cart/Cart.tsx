@@ -1,28 +1,24 @@
-import { Flex, Typography } from "antd";
-import { useCart } from "src/App";
+import { Flex } from "antd";
 import CartProduct from "./CartProduct";
-import { useEffect } from "react";
+import useGetCart from "./hooks/useGetCart";
+import { getDecodedToken } from "src/utils/functions";
+import { LoadingScreen } from "../utils/loadingScreen";
 
 const Cart = () => {
-  const cartHandler = useCart();
+  const userId = getDecodedToken().userId;
+  const { data: cartList, isLoading: cartLoading } = useGetCart(userId);
 
-  useEffect(() => {
-    console.log(cartHandler?.cart);
-  }, [cartHandler]);
+  if (cartLoading) return <LoadingScreen />;
 
   return (
-    cartHandler?.cart &&
-    (cartHandler?.cart.length > 0 ? (
-      <Flex wrap="wrap" gap="large" align="stretch">
-        {cartHandler.cart.map((cartProduct) => (
-          <CartProduct key={cartProduct.id} product={cartProduct}></CartProduct>
-        ))}
-      </Flex>
-    ) : (
-      <Typography.Title style={{color: "aliceblue"}} level={3}>
-        No hay productos en el carrito
-      </Typography.Title>
-    ))
+    <Flex wrap="wrap" gap="large" align="stretch">
+      {cartList?.map((cartProduct: Cart, index: number) => {
+        console.log(cartProduct.resources);
+        return cartProduct.resources ? (
+          <CartProduct key={index} resource={cartProduct.resources} />
+        ) : null;
+      })}
+    </Flex>
   );
 };
 

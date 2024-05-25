@@ -1,6 +1,6 @@
 
 import './Intercambios.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Intercambios = () => {
   const navigate = useNavigate(); // Hook para navegar entre rutas
@@ -27,10 +27,14 @@ const Intercambios = () => {
             <p>Unidades: 5</p>
             <p>Stock: Disponible</p>
           </div>
-          <button className="btn-intercambiar" onClick={handleNavigateToNegociacion}>
+          <Link to={'http://localhost:3000'}>
+          <button className="btn-intercambiar">
             Intercambiar
           </button>
+          </Link>
         </div>
+
+      
 
         {/* Tabla 2 */}
         <div className="tabla">

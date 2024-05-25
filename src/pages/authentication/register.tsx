@@ -5,18 +5,34 @@ import { HiOutlineMail } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 import { MdDriveFileRenameOutline } from "react-icons/md";
-import { confirmPassRules, emailRules } from "./utils";
+import { emailRules } from "./utils";
+// import { confirmPassRules } from "./utils";
 import { DefaultInputStyle } from "src/shared/components/commonStyles";
+import useRegister from "./hooks/useRegister";
+import { useEffect } from "react";
 
 const Register = () => {
   const [form] = Form.useForm();
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const {
+    mutate: registerUser,
+    isPending: registerLoading,
+    isError: registerError,
+    error: registerErrorLog,
+  } = useRegister();
+  
+  const onFinish = (values: users) => {
+    const date = new Date();
+    values.register_date = date;
+    registerUser(values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    console.log(registerErrorLog);
+  }, [registerError]);
 
   return (
     <div
@@ -43,6 +59,9 @@ const Register = () => {
             <Form
               form={form}
               name="login"
+              layout="horizontal"
+              labelCol={{ span: 10 }}
+              wrapperCol={{ span: 14 }}
               style={{ maxWidth: 300, color: "aliceblue" }}
               initialValues={{ remember: true }}
               onFinish={onFinish}
@@ -50,7 +69,11 @@ const Register = () => {
               autoComplete="on"
               scrollToFirstError
             >
-              <Form.Item name="name" label="Nombre">
+              <Form.Item
+                name="name"
+                label={<span style={{ color: "aliceblue" }}>Nombre</span>}
+                style={{ color: "aliceblue" }}
+              >
                 <Input
                   style={DefaultInputStyle}
                   prefix={<MdDriveFileRenameOutline />}
@@ -58,14 +81,14 @@ const Register = () => {
               </Form.Item>
               <Form.Item
                 name="email"
-                label="E-mail"
+                label={<span style={{ color: "aliceblue" }}>E-mail</span>}
                 rules={emailRules}
               >
                 <Input style={DefaultInputStyle} prefix={<HiOutlineMail />} />
               </Form.Item>
               <Form.Item
                 name="username"
-                label="username"
+                label={<span style={{ color: "aliceblue" }}>Usuario</span>}
                 tooltip="What do you want to call you?"
                 rules={[
                   { required: true, message: "Please input your username!" },
@@ -75,7 +98,7 @@ const Register = () => {
               </Form.Item>
               <Form.Item
                 name="password"
-                label="Password"
+                label={<span style={{ color: "aliceblue" }}>Contraseña</span>}
                 rules={[
                   {
                     required: true,
@@ -89,8 +112,8 @@ const Register = () => {
                   prefix={<AiOutlineLock />}
                 />
               </Form.Item>
-              <Form.Item
-                name="confirm"
+              {/* <Form.Item
+                name="password"
                 label="Confirm Password"
                 dependencies={["password"]}
                 hasFeedback
@@ -100,15 +123,21 @@ const Register = () => {
                   style={DefaultInputStyle}
                   prefix={<AiOutlineLock />}
                 />
-              </Form.Item>
+              </Form.Item> */}
               <Form.Item style={{ color: "aliceblue" }}>
                 <Flex justify="space-between">
-                  <Button type="primary" disabled={false} htmlType="submit">
+                  <Button
+                    type="primary"
+                    disabled={registerLoading}
+                    htmlType="submit"
+                  >
                     {false ? <LoadingOutlined /> : "Register"}
                   </Button>
                   or
                   <Link to={"/login"}>
-                    <Button type="primary">Log in</Button>
+                    <Button type="primary" disabled={registerLoading}>
+                      Log in
+                    </Button>
                   </Link>
                 </Flex>
               </Form.Item>

@@ -17,8 +17,8 @@ type users = {
     email: string,
     username: string,
     password: string,
-    registerDate: Date,
-    rolesByUser: RolesByUser[]
+    register_date: Date,
+    roles_by_user: RolesByUser[]
 }
 
 type LoginObjectModel = {

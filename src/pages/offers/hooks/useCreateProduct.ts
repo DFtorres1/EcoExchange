@@ -2,23 +2,23 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import api from "src/utils/api";
 
-const postRegister = async (newUser: users) => {
-  const { data } = await api.post("/authentication/register", newUser);
+const postProduct = async (newResource: Resource) => {
+  const { data } = await api.post("/resource", newResource);
   return data;
 };
 
-const useRegister = () => {
+const useCreateProduct = () => {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: (newUser: users) => postRegister(newUser),
+    mutationFn: (newResource: Resource) => postProduct(newResource),
     onError: (err: any) => {
       console.log(err);
     },
     onSuccess: () => {
-      return navigate("/login");
+      return navigate("/offers");
     },
   });
 };
 
-export default useRegister;
+export default useCreateProduct;

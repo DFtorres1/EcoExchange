@@ -126,8 +126,8 @@ export const PageLayout: FC<LayoutProps> = ({ children }) => {
                 border: "0",
                 borderRadius: "0",
                 fontFamily: "impact",
-                WebkitTextStroke: "1px",
-                WebkitTextStrokeColor: "black",
+                WebkitTextStroke: "0.5px",
+                WebkitTextStrokeColor: "aliceblue",
               }}
             >
               <div>{children}</div>

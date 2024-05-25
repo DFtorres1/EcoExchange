@@ -1,7 +1,6 @@
 import { generateQueryKeys } from "./functions";
 
-const placeholderQueryKey = generateQueryKeys("placeholder")
+const resourceQueryKey = generateQueryKeys("resource");
+const cartQueryKey = generateQueryKeys("cart");
 
-export {
-    placeholderQueryKey
-}
+export { resourceQueryKey, cartQueryKey };
